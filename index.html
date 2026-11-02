@@ -1507,6 +1507,13 @@ main { position: relative; }
   .shop-actions { flex-direction: column-reverse; align-items: stretch; padding: 16px; gap: 12px; }
 }
 
+/* ===== No public counts: followers, likes and views are hidden everywhere ===== */
+.stats, .thumb .views, .card .meta, #like-count { display: none !important; }
+.card .thumb { border-bottom: 0; }
+.profile { padding-bottom: 40px; }
+.toolbar { border-top: 1px solid var(--line); }
+@media (max-width: 560px) { .profile { padding-bottom: 24px; } .grid { gap: 10px; } }
+
 /* Public build: no shared database */
 .like-btn, .comments { display: none !important; }
 .panel-actions > * { grid-column: span 3 !important; }
@@ -1564,8 +1571,6 @@ main { position: relative; }
               <option value="newest">Newest</option>
               <option value="oldest">Oldest</option>
               <option value="views">Most viewed</option>
-              <option value="liked">Most liked here</option>
-              <option value="commented">Most commented</option>
               <option value="longest">Longest</option>
             </select>
           </label>
@@ -2323,7 +2328,7 @@ window.SIZES = {"7692088054630059265": 606918, "7692091492143205639": 262941, "7
     const wrap = $("#modal-player"), ph = $("#modal-photo");
     if (v.photo || !v.src) { video.pause(); video.removeAttribute("src"); video.load(); video.hidden = true; ph.hidden = false; ph.src = v.poster; wrap.classList.add("paused", "is-photo"); }
     else { ph.hidden = true; video.hidden = false; wrap.classList.remove("is-photo"); video.src = v.src; video.poster = v.poster; video.load(); }
-    $("#modal-stats").textContent = fmt(v.views) + " views on TikTok, " + fmt(v.likes) + " likes on TikTok, " + mmss(v.dur) + ", " + niceDate(v.date);
+    $("#modal-stats").textContent = mmss(v.dur) + ", " + niceDate(v.date);
     $("#modal-music").textContent = "Sound: " + (v.music || "original sound");
     $("#modal-open").href = v.url;
     const pos = visible.findIndex(x => x._i === i);
